@@ -1,12 +1,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var multer = require('multer'); // v1.0.5
+//var multer = require('multer'); // v1.0.5
 var app = express();
-var upload = multer();
+//var upload = multer();
 app.use(express.static('views'));
 app.use(bodyParser.json());
 
+const PORT = process.env.PORT || 3000;
 
 // ############################################################
 // Map the Steam name to the discord Id to @mention the players
@@ -33,7 +34,7 @@ var debugserver = 'https://...webhook link for when things go wrong';
 
  
 
-app.post("/", upload.array(),function (req, response) {
+app.post("/", (req, response) => {
   
   console.log( req.body );
   console.log ( req.body.value2);
@@ -60,6 +61,7 @@ app.post("/", upload.array(),function (req, response) {
   response.end();  
 });
 
+
 function sendMessage( server, content )
 {
 	request({ 
@@ -79,6 +81,6 @@ function sendMessage( server, content )
 }
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(PORT, () => {
   console.log('Your app is listening on port ' + listener.address().port);
 });
