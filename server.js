@@ -40,7 +40,7 @@ app.post("/", (req, response) => {
   
   if ( playerId && server )
   {
-    var content = "Hey <@"+ playerId + ">, á leik í " + gamename +" (umferð #" + turnNumber + ")";
+    var content = "Hæ <@"+ playerId + ">, þú á leik í " + gamename +" (umferð #" + turnNumber + ")";
     sendMessage( server, content);
     console.log("Done triggering.");
   }
