@@ -1,9 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-//var multer = require('multer'); // v1.0.5
 var app = express();
-//var upload = multer();
+
 app.use(express.static('views'));
 app.use(bodyParser.json());
 
@@ -26,12 +25,6 @@ var playerMapping = {
 var serverMapping = {
   "Nyms's Game": 'https://discordapp.com/api/webhooks/694965742847918164/iR_7ecM-CL2Uik4EkCuYWjLmW9EXvGU0a0GT3gCPeYH1vpwfoW7_cd3xh1aN9iM4sKoN'
 }; 
-
-// #################################################################
-// Debug webhook if something goes wrong ( eg server or player is not found in arrays above )
-//
-var debugserver = 'https://...webhook link for when things go wrong';
-
  
 
 app.post("/", (req, response) => {
@@ -47,14 +40,13 @@ app.post("/", (req, response) => {
   
   if ( playerId && server )
   {
-    var content = "Hey <@"+ playerId + ">, it's time to take your turn #" + turnNumber + " in '" + gamename +"'!";
+    var content = "Hey <@"+ playerId + ">, á leik í " + gamename +" (umferð #" + turnNumber + ")";
     sendMessage( server, content);
     console.log("Done triggering.");
   }
   else
   {
     var content = "Error in data, missing game or player?\n" + req.body;
-    sendMessage( debugserver,content );
     console.log( content );
   }
 
