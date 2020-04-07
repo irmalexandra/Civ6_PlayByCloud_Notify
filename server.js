@@ -2,9 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
+var https = require('https');
 
 app.use(express.static('views'));
 app.use(bodyParser.json());
+
+var httpsServer = https.createServer(app)
+
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -40,14 +45,15 @@ app.post("/", (req, response) => {
   
   if ( playerId && server )
   {
-    var content = "Hæ <@"+ playerId + ">, þú á leik í " + gamename +" (umferð #" + turnNumber + ")";
+    var content = "Hæ <@"+ playerId + ">, þú átt leik í " + gamename +" (umferð #" + turnNumber + ").";
     sendMessage( server, content);
     console.log("Done triggering.");
   }
   else
   {
     var content = "Error in data, missing game or player?\n" + req.body;
-    console.log( content );
+    console.log(content);
+
   }
 
   response.end();  
@@ -72,7 +78,9 @@ function sendMessage( server, content )
   });
 }
 
-// listen for requests :)
+// httpsServer.listen(PORT), () => {
+//   console.log('Your app is listening on port ' + PORT);
+// };
 var listener = app.listen(PORT, () => {
   console.log('Your app is listening on port ' + listener.address().port);
 });
